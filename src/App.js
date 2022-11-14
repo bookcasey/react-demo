@@ -1,21 +1,24 @@
 import React from 'react';
 import './App.css';
+import WelcomeList from './WelcomeList';
+import Greeting from './Greeting';
+import Notifications from './Notifications';
 
 function App() {
+  const currentLang = 'es'
+
   return (
-    <React.Fragment>
-      <section className="App">
-        <h1>Casey's Cool Web App</h1>
-        <p>Welcome to my site!</p>
-        <p>Hello hello</p>
-        <div>
-          <div>
-            <div></div>
-          </div>
-        </div>
-      </section>
-      <div></div>
-    </React.Fragment>
+    <section className="App">
+      <Notifications notifications={[4, 2, 3]} />
+      <h1>Casey's Cool Web App</h1>
+
+      <WelcomeList />
+
+      <hr />
+
+      <Greeting lang={currentLang} />
+
+    </section>
   );
 }
 
