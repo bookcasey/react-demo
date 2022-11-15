@@ -1,8 +1,20 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("App", () => {
+  test("renders without crashing", () => {
+    render(<App />);
+  });
+
+  test("title exists", () => {
+    render(<App />);
+    const text = screen.getByText("Casey's Cool Web App!!!")
+    expect(text).toBeInTheDocument();
+  });
+
+  test('four user list items exist', () => {
+    render(<App />);
+    const items = screen.getAllByText(/working/i);
+    expect(items).toHaveLength(4);
+  })
 });

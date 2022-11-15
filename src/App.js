@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import UserList from './UserList';
-
+// import { UserList } from './UserList'; // -> export function UserList() { ... };
+import UserList from './UserList'; // export default UserList()
 
 function App() {
   const users = [
@@ -38,7 +38,7 @@ function App() {
   return (
     <section className="App">
       {/* <h1 style={{ backgroundColor: 'lightblue' }}>Casey's Cool Web App</h1> */}
-      <h1 style={styles.h1}>Casey's Cool Web App</h1>
+      <h1 style={styles.h1}>Casey's Cool Web App!!!</h1>
 
       <UserList users={users} />
 
