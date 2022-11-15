@@ -1,0 +1,9 @@
+li {
+    /* Change ALL li's across the whole app, not just in UserListItem */
+    color: red;
+}
+
+.user-list-item {
+    /* Any items with the class of user-list-item across the whole app */
+    color: white;
+}
