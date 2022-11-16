@@ -1,48 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-// import { UserList } from './UserList'; // -> export function UserList() { ... };
-import UserList from './UserList'; // export default UserList()
+import Content from './Content';
+import Header from './Header';
+
+import Subscriptions from './Subscriptions';
 
 function App() {
-  const users = [
-    {
-      id: 1,
-      name: 'Teddy',
-      tech: 'React',
-      color: 'red',
-    },
-    {
-      id: 2,
-      name: 'Gwynn',
-      tech: 'Postgres',
-      color: 'blue',
-    },
-    {
-      id: 3,
-      name: 'Casey',
-      tech: 'Node',
-      color: 'green',
-    },
-    {
-      id: 4,
-      name: 'Jason',
-      tech: 'CSS',
-      color: 'purple',
-    }
-  ];
+  // count = state variable
+  // setCount = state setting function
+  // 0 = starting value
+  const [count, setCount] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  const styles = {
-    h1: { backgroundColor: 'lightblue' }
+  const toggleLoggedIn = () => setLoggedIn(!loggedIn);
+
+  function handleClick() {
+    console.log('clicked!!!');
   }
+
+  function handleCountClick() {
+    // If for some convoluted reason, you need to call setCount twice in the same place
+    setCount(prevCount => prevCount + 1);
+    setCount(prevCount => prevCount + 1);
+
+    // Only increments by one, be careful!
+    // setCount(count + 1);
+    // setCount(count + 1);
+  }
+
+  // NEVER do this. DO NOT mutate the state.
+  // count = 15
+  // count++
+  // count = count + 1
 
   return (
     <section className="App">
-      {/* <h1 style={{ backgroundColor: 'lightblue' }}>Casey's Cool Web App</h1> */}
-      <h1 style={styles.h1}>Casey's Cool Web App!!!</h1>
+      <Header loggedIn={loggedIn} toggleLoggedIn={toggleLoggedIn} />
 
-      <UserList users={users} />
+      <h1>Casey's Web App</h1>
 
-      <li>Inside app!</li>
+      <Content loggedIn={loggedIn} />
+
+      <Subscriptions />
+
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(prevCount => prevCount + 1)}>Increment count</button>
+      <button onClick={() => setCount(count + 1)}>Increment count</button>
+      <button onClick={handleCountClick}>Increment count by 2</button>
+
+      < hr />
+
+      <button onClick={() => console.log('button was clicked')}>Click me!</button>
+      <button onClick={handleClick}>Button 3</button>
+      <button onClick={() => handleClick()}>Another button</button>
+
+      {/* Don't do this! It will run before it is clicked on  */}
+      {/* <button onClick={handleClick()}>Another button</button> */}
+
     </section>
   );
 }
