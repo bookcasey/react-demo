@@ -1,62 +1,88 @@
+import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 import React, { useState } from 'react';
 import './App.css';
-import Content from './Content';
-import Header from './Header';
-
-import Subscriptions from './Subscriptions';
 
 function App() {
-  // count = state variable
-  // setCount = state setting function
-  // 0 = starting value
-  const [count, setCount] = useState(0);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const initialFormState = {
+    text: '',
+    tag: 'home',
+    important: false
+  }
+  const [formData, setFormData] = useState(initialFormState);
 
-  const toggleLoggedIn = () => setLoggedIn(!loggedIn);
+  // const [text, setText] = useState('');
+  // const [tag, setTag] = useState("home"); // starting value doesn't need to be empty
+  // const [important, setImportant] = useState(false);
 
-  function handleClick() {
-    console.log('clicked!!!');
+  // const handleTextChange = event => setText(event.target.value);
+  // const handleTagChange = event => setTag(event.target.value);
+  // const handleImportantChange = event => setImportant(event.target.checked);
+
+  const handleInputChange = (event) => {
+
+    console.log(event);
+    let value = event.target.value;
+    if (event.target.type === 'checkbox') {
+      value = event.target.checked;
+    }
+    setFormData({
+      ...formData,
+      [event.target.name]: value
+    })
   }
 
-  function handleCountClick() {
-    // If for some convoluted reason, you need to call setCount twice in the same place
-    setCount(prevCount => prevCount + 1);
-    setCount(prevCount => prevCount + 1);
-
-    // Only increments by one, be careful!
-    // setCount(count + 1);
-    // setCount(count + 1);
+  const handleFormSubmit = event => {
+    event.preventDefault();
+    // setText("");
+    // setTag('home');
+    // setImportant(false);
+    setFormData(initialFormState)
   }
-
-  // NEVER do this. DO NOT mutate the state.
-  // count = 15
-  // count++
-  // count = count + 1
 
   return (
     <section className="App">
-      <Header loggedIn={loggedIn} toggleLoggedIn={toggleLoggedIn} />
+      <h1>Casey's Todo List</h1>
 
-      <h1>Casey's Web App</h1>
+      <p>Draft: {formData.text} @ {formData.tag} {formData.important ? 'is important' : ''}</p>
 
-      <Content loggedIn={loggedIn} />
+      <form onSubmit={handleFormSubmit}>
+        <label htmlFor='text'>
+          Text:
+          <input
+            id='text'
+            name='text'
+            onChange={handleInputChange}
+            value={formData.text}
+          ></input>
+        </label>
+        <br />
+        <label htmlFor='tag'>
+          Tag:
+          <select
+            id='tag'
+            name='tag'
+            onChange={handleInputChange}
+            value={formData.tag}>
+            <option value='work'>Work</option>
+            <option value='hobbies'>Hobbies</option>
+            <option value='home'>Home</option>
 
-      <Subscriptions />
+          </select>
+        </label>
+        <br />
+        <label htmlFor='important'>
+          Important:
+          <input
+            id='name'
+            name='important'
+            onChange={handleInputChange}
+            checked={formData.important}
+            type='checkbox'></input>
+        </label>
+        <br />
+        <button type='submit'>Submit</button>
 
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(prevCount => prevCount + 1)}>Increment count</button>
-      <button onClick={() => setCount(count + 1)}>Increment count</button>
-      <button onClick={handleCountClick}>Increment count by 2</button>
-
-      < hr />
-
-      <button onClick={() => console.log('button was clicked')}>Click me!</button>
-      <button onClick={handleClick}>Button 3</button>
-      <button onClick={() => handleClick()}>Another button</button>
-
-      {/* Don't do this! It will run before it is clicked on  */}
-      {/* <button onClick={handleClick()}>Another button</button> */}
-
+      </form>
     </section>
   );
 }
