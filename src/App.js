@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import './App.css';
-import User from './User';
+import UserIndex from './UserIndex';
 import Users from './Users';
 
 
@@ -25,7 +25,7 @@ function App() {
             <h1>About</h1>
           </Route>
           <Route path='/users/:userId'>
-            <User />
+            <UserIndex />
           </Route>
           <Route path='/users'>
             <Users />
