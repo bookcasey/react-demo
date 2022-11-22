@@ -11,7 +11,7 @@ export default function Users() {
       setUser(data)
     }
     fetchUser();
-  }, [])
+  }, [userId])
   return (
     <div>
       <p>{user.name}</p>
